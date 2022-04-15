@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/register")
 public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EmployeeDAO employeeDao;
+	private EmployeeDAO employeeDao = new EmployeeDAO();
+
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -26,10 +27,10 @@ public class EmployeeServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		int registerEmployeeId = 0;
@@ -66,15 +67,5 @@ public class EmployeeServlet extends HttpServlet {
 			request.getRequestDispatcher("employeedetails.jsp").forward(request, response);
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		doGet(request, response);
-	}
-
+	
 }

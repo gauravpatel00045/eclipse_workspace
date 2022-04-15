@@ -22,21 +22,39 @@ public class EmployeeDAO {
 	private static final String KEY_PASSWORD = "password";
 	private static final String KEY_CONTACT = "contact";
 
+	EmployeeDAO() {
+
+	}
+
 	/**
 	 * To initialize the Database connection
 	 * 
 	 * @return Connection It returns the object
 	 */
-	static Connection initializeDatabase() throws SQLException, ClassNotFoundException {
+	public Connection initializeDatabase() {
 		String dbDriver = "com.mysql.jdbc.Driver";
 		String dbUrl = "jdbc:mysql://localhost:3306/";
 		String dbName = "register";
 		String dbUsername = "root";
 		String dbPassword = "gaurav@123";
+		Connection connection = null;
+		try {
+			Class.forName(dbDriver);
+			// Step 1: Established the connection with database
 
-		Class.forName(dbDriver);
-		// Step 1: Established the connection with database
-		Connection connection = DriverManager.getConnection(dbUrl + dbName, dbUsername, dbPassword);
+			try {
+				connection = DriverManager.getConnection(dbUrl + dbName, dbUsername, dbPassword);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				printSQLException(e);
+			}
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		System.out.println("Connection is successful !!!!!");
 		return connection;
 	}
@@ -52,12 +70,7 @@ public class EmployeeDAO {
 		Connection connection = null;
 		try {
 
-			try {
-				connection = EmployeeDAO.initializeDatabase();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			connection = initializeDatabase();
 			// Step 2:Create a statement using connection object
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(SELECT_SQL);
@@ -74,9 +87,6 @@ public class EmployeeDAO {
 
 				employeeList.add(employee);
 			}
-
-			resultSet.close();
-			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,7 +108,8 @@ public class EmployeeDAO {
 		int result = 0;
 
 		try {
-			Connection connection = EmployeeDAO.initializeDatabase();
+
+			Connection connection = initializeDatabase();
 			// Step 2:Create a statement using connection object
 			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL);
 
@@ -111,8 +122,7 @@ public class EmployeeDAO {
 
 			// Step 3: Execute the query or update query
 			result = preparedStatement.executeUpdate();
-			preparedStatement.close();
-			connection.close();
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,7 +144,7 @@ public class EmployeeDAO {
 		int result = 0;
 
 		try {
-			Connection connection = EmployeeDAO.initializeDatabase();
+			Connection connection = initializeDatabase();
 			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_SQL);
 			preparedStatement.setString(1, employee.getFirstName());
 			preparedStatement.setString(2, employee.getLastName());
@@ -145,9 +155,6 @@ public class EmployeeDAO {
 
 			// Step 3: Execute the query or update query
 			result = preparedStatement.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,7 +174,7 @@ public class EmployeeDAO {
 		int result = 0;
 
 		try {
-			Connection connection = EmployeeDAO.initializeDatabase();
+			Connection connection = initializeDatabase();
 			PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_SQL);
 			preparedStatement.setString(1, employee.getFirstName());
 			preparedStatement.setString(2, employee.getLastName());
@@ -178,9 +185,6 @@ public class EmployeeDAO {
 
 			// Step 3: Execute the query or update query
 			result = preparedStatement.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -207,5 +211,5 @@ public class EmployeeDAO {
 			}
 		}
 	}
-	
+
 }
