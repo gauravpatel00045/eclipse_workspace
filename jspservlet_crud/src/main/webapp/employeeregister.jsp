@@ -35,7 +35,7 @@
 				</tr>
 				<tr>
 					<td>Contact No</td>
-					<td><input type="number" name="contact" required
+					<td><input type="tel" name="contact" pattern="^[0-9]*$" required
 						maxlength="10" /></td>
 				</tr>
 			</table>
