@@ -133,7 +133,7 @@ public class CustomerController {
 	}
 
 	/**
-	 * Method to get the employee record by id
+	 * Method to get the record by id
 	 *
 	 * @param id
 	 * @return Employee
