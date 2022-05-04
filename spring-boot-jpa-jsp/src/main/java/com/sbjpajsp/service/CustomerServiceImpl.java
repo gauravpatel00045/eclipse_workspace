@@ -3,12 +3,8 @@ package com.sbjpajsp.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.Optional;
-
 import com.sbjpajsp.exception.CustomerNotFoundException;
 import com.sbjpajsp.model.Customer;
 import com.sbjpajsp.repository.CustomerRepository;
