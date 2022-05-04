@@ -13,7 +13,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>customer management app</title>
 </head>
 <body>
 	<div class="container">
@@ -28,7 +28,8 @@
 				<form>
 					<a href="/customerform" class="btn btn-success ">Add Customer <i
 						class="fa fa-plus-square" aria-hidden="true"></i></a> <a
-						href="/customerlist" class="btn btn-primary">Show All Customers</a>
+						href="/customerlist" class="btn btn-primary">Show All
+						Customers</a>
 				</form>
 			</div>
 		</div>

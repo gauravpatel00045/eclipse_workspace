@@ -18,25 +18,15 @@
 
 <script type="text/javascript">
 
-<c:if test="${customer != null}">
 $('#submit').click(function(){
-	   $('#register_form').attr('action', '/update');
+	   $('#register_form').attr('action', <c:if test="${customer != null}">'/update'</c:if> <c:if test="${customer == null}">'/register'</c:if>);
 	})
-</c:if>
-
-
-<c:if test="${customer == null}">
-$('#submit').click(function(){
-	   $('#register_form').attr('action', '/register');
-	})
-
-</c:if>
 
 </script>
 
-
 <title>Customer Registration</title>
 </head>
+
 <body>
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
@@ -139,7 +129,7 @@ $('#submit').click(function(){
 					</c:if>
 
 					<br />
-					<div>
+					<div >
 						<p id="errormsg">Status: ${message}</p>
 					</div>
 				</form>

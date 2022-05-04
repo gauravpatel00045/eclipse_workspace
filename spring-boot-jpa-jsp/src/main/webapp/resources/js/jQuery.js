@@ -87,27 +87,20 @@ function callRegisterFormValidate() {
 		},
 
 		submitHandler: function(form) {
-			 isEmailExist(form)
-
-			//var status = isEmailExist(form);
-			
+			isEmailOrMobileExist(form)
 		}
 	});
 
-
-
-
 }
 
+// ajax call to check email and phone 
+function isEmailOrMobileExist(form) {
 
-function isEmailExist(form) {
-	
 	var customerId = $("#id").val();
 	var enteredEmail = $("#email").val();
 	var enteredMobile = $("#mobile").val();
-	var emailResult = false;
-	console.log("checkemailandmobile started")
 
+	console.log("checkemailandmobile started")
 
 	$.ajax({
 		type: 'post',
@@ -121,12 +114,10 @@ function isEmailExist(form) {
 			if (response == "unique") {
 				$("#errormsg").text("Email is unique");
 				form.submit();
-			//	return true;
 			} else {
 				$('#email').focus();
 				$("#email").html("Email or Mobile already registered");
 				$("#errormsg").text("Email or Mobile already registered");
-			//  return false;
 			}
 		},
 		error: function(response) {
@@ -134,39 +125,6 @@ function isEmailExist(form) {
 			alert(response);
 		}
 	});
-}
-
-function isMobileExist(form) {
-
-	var enteredMobile = $("#mobile").val();
-
-	console.log("isMobileExist started")
-
-
-	$.ajax({
-		type: 'post',
-		url: 'checkmobile',
-		data: {
-			mobile: enteredMobile,
-		},
-		success: function(response) {
-			if (response == "unique") {
-				$("#errormsg").text("Mobile is unique");
-				//	form.submit();
-				return true;
-			} else {
-				$('#email').focus();
-				$("#email").html("Mobile already registered");
-				$("#errormsg").text("Mobile already registered");
-				return false;
-			}
-		},
-		error: function(response) {
-			console.log(response);
-			alert(response);
-		}
-	});
-
 }
 
 // To add rule for custom email validation in validate function

@@ -11,12 +11,12 @@ import com.sbjpajsp.model.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	
 	/**
-	 * To find email record by emailId
+	 * To find record by emailId
 	 */
 	public List<Customer> findByEmail(String email);
 
 	/**
-	 * To find mobile record by mobile
+	 * To find record by mobile
 	 */
 	public List<Customer> findByMobile(String mobile);
 

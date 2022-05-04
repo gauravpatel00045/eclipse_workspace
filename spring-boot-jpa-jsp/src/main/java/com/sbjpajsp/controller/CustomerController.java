@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.sbjpajsp.constant.Constant;
 import com.sbjpajsp.exception.CustomerNotFoundException;
 import com.sbjpajsp.model.Customer;
 import com.sbjpajsp.service.CustomerServiceImpl;
@@ -22,8 +24,6 @@ public class CustomerController {
 	// class object declaration
 	@Autowired
 	CustomerServiceImpl customerService;
-
-	public static final int FROM_EDIT = 0;
 
 	/**
 	 * 
@@ -84,9 +84,9 @@ public class CustomerController {
 	@RequestMapping("/checkemail")
 	public @ResponseBody String checkEmailValidity(String email, Model model) {
 		if (customerService.isEmailAlreadyExist(email)) {
-			return "duplicate";
+			return Constant.DUPLICATE;
 		} else {
-			return "unique";
+			return Constant.UNIQUE;
 		}
 	}
 
@@ -101,37 +101,29 @@ public class CustomerController {
 	 *         except with same id
 	 */
 	@RequestMapping("/checkemailandmobile")
-	public @ResponseBody String checkEmailAndMobile(long id, String email, String mobile) {
+	public @ResponseBody String checkEmailAndMobile(Long id, String email, String mobile) {
+		boolean isEmailExist;
+		boolean isMobileExist;
 
-		if (id != FROM_EDIT) {
-			// edit user
-			if (customerService.isEmailAlreadyExist(id, email) || customerService.isMobileAlreadyExist(id, mobile)) {
-				return "duplicate";
-			} else if (customerService.isEmailAlreadyExist(id, email)
-					&& !customerService.isMobileAlreadyExist(id, mobile)) {
-				return "unique";
-			} else if (!customerService.isEmailAlreadyExist(id, email)
-					&& !customerService.isMobileAlreadyExist(id, mobile)) {
-				return "unique";
-			} else if (!customerService.isEmailAlreadyExist(id, email)
-					&& customerService.isMobileAlreadyExist(id, mobile)) {
-				return "duplicate";
+		if (id != Constant.FROM_EDIT) {
+			// existing user
+			isEmailExist = customerService.isEmailAlreadyExist(id, email);
+			isMobileExist = customerService.isMobileAlreadyExist(id, mobile);
+
+			if (isEmailExist || isMobileExist) {
+				return Constant.DUPLICATE;
 			} else {
-				return "duplicate";
+				return Constant.UNIQUE;
 			}
-
 		} else {
-			// is from add
-			if (customerService.isEmailAlreadyExist(email) || customerService.isMobileAlreadyExist(mobile)) {
-				return "duplicate";
-			} else if (customerService.isEmailAlreadyExist(email) && !customerService.isMobileAlreadyExist(mobile)) {
-				return "unique";
-			} else if (!customerService.isEmailAlreadyExist(email) && !customerService.isMobileAlreadyExist(mobile)) {
-				return "unique";
-			} else if (!customerService.isEmailAlreadyExist(email) && customerService.isMobileAlreadyExist(mobile)) {
-				return "duplicate";
+			// new user
+			isEmailExist = customerService.isEmailAlreadyExist(email);
+			isMobileExist = customerService.isMobileAlreadyExist(mobile);
+
+			if (isEmailExist || isMobileExist) {
+				return Constant.DUPLICATE;
 			} else {
-				return "duplicate";
+				return Constant.UNIQUE;
 			}
 		}
 	}
@@ -203,7 +195,6 @@ public class CustomerController {
 		String page = null;
 		try {
 			customerService.deleteAllCustomerRecord();
-
 			page = "redirect:/customerlist";
 		} catch (CustomerNotFoundException e) {
 			e.printStackTrace();

@@ -33,16 +33,12 @@
 		<div class="container">
 			<h3 class="text-center">List of Customers</h3>
 			<hr>
-
 			<div class="form-raw">
-
 				<a href="customerform" class="btn btn-success">Add New Customer</a>
 				<a href="/deleteall" class="btn btn-danger"
 					onclick="if (!(confirm('Are you sure you want to delete all record?'))) return false">Delete
 					All</a>
 			</div>
-
-
 			<br>
 			<table class="table table-bordered">
 				<thead>
@@ -59,9 +55,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					 <!-- customerlist -->
+					<!-- customer list -->
 					<c:forEach var="customer" items="${customerList}">
-
 						<tr>
 							<td><a href="/edit?id=<c:out value='${customer.id}' />">Edit</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
@@ -76,12 +71,9 @@
 							<td><c:out value="${customer.address_1}" /></td>
 							<td><c:out value="${customer.age}" /></td>
 							<td><c:out value="${customer.gender}" /></td>
-
 						</tr>
 					</c:forEach>
-
 				</tbody>
-
 			</table>
 		</div>
 	</div>
