@@ -3,6 +3,7 @@ package com.sbjpajsp.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import com.sbjpajsp.exception.CustomerNotFoundException;
@@ -37,7 +38,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public List<Customer> getCustomerList() {
 		// TODO Auto-generated method stub
-		return customerRepository.findAll();
+		return customerRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 	}
 
 	/**

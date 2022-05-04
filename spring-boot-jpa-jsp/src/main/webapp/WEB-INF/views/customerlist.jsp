@@ -42,8 +42,8 @@
 			<br>
 			<table class="table table-bordered">
 				<thead>
-					<tr>
-						<th>Actions</th>
+					<tr class="text-center">
+						
 						<th>ID</th>
 						<th>Name</th>
 						<th>Email</th>
@@ -52,25 +52,26 @@
 						<th>Address</th>
 						<th>Age</th>
 						<th>Gender</th>
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- customer list -->
 					<c:forEach var="customer" items="${customerList}">
 						<tr>
-							<td><a href="/edit?id=<c:out value='${customer.id}' />">Edit</a>
-								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="/delete?id=<c:out value='${customer.id}' />"
-								onclick="if (!(confirm('Are you sure you want to delete ?'))) return false">Delete</a></td>
 							<td><c:out value="${customer.id}" /></td>
 							<td><c:out value="${customer.firstName}" /> <c:out
 									value="${customer.lastName}" /></td>
 							<td><c:out value="${customer.email}" /></td>
 							<td><c:out value="${customer.mobile}" /></td>
 							<td><c:out value="${customer.birthDate}" /></td>
-							<td><c:out value="${customer.address_1}" /></td>
+							<td><c:out value="${customer.address_1}" /> <c:out value="${customer.address_2}" /></td>
 							<td><c:out value="${customer.age}" /></td>
 							<td><c:out value="${customer.gender}" /></td>
+							<td><a href="/edit?id=<c:out value='${customer.id}' />">Edit</a>
+								&nbsp;&nbsp;&nbsp;&nbsp; <a
+								href="/delete?id=<c:out value='${customer.id}' />"
+								onclick="if (!(confirm('Are you sure you want to delete ?'))) return false">Delete</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

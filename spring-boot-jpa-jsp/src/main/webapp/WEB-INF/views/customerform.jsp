@@ -20,7 +20,7 @@
 
 $('#submit').click(function(){
 	   $('#register_form').attr('action', <c:if test="${customer != null}">'/update'</c:if> <c:if test="${customer == null}">'/register'</c:if>);
-	})
+	});
 
 </script>
 
@@ -91,7 +91,7 @@ $('#submit').click(function(){
 						</fieldset>
 						<fieldset class="form-group col-md-6">
 							<label>Birth date</label> <input type="date" id="birthDate"
-								name="birthDate" value="<c:out value='${customer.birthDate}' />"
+								name="birthDate" placeholder="dd-mm-yyyy" value="<c:out value='${customer.birthDate}' />"
 								class="form-control" required="required" />
 						</fieldset>
 
@@ -110,7 +110,6 @@ $('#submit').click(function(){
 						<label>Email</label> <input type="text"
 							value="<c:out value='${customer.email}' />" class="form-control"
 							name="email" id="email">
-
 					</fieldset>
 
 					<fieldset class="form-group">
@@ -129,7 +128,7 @@ $('#submit').click(function(){
 					</c:if>
 
 					<br />
-					<div >
+					<div>
 						<p id="errormsg">Status: ${message}</p>
 					</div>
 				</form>

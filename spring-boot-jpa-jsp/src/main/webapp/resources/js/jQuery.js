@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 	callRegisterFormValidate();
 
-
+	allowNumber();
 });// JavaScript Document
 
 // To Restrict future date selection in date input
@@ -27,6 +27,7 @@ function stopFutureDateSelection() {
 
 // To initialise the validate function while user interact with the form
 function callRegisterFormValidate() {
+
 	$("form[name='register_form']").validate({
 		// Specify validation rules
 		rules: {
@@ -35,6 +36,14 @@ function callRegisterFormValidate() {
 			birthDate: "required",
 			address1: "required",
 			birthDate: {
+			},
+			firstName: {
+				required: true,
+				namepattern: /^[a-zA-Z]*$/,
+			},
+			lastName: {
+				required: true,
+				namepattern: /^[a-zA-Z]*$/,
 			},
 			age: {
 				required: true,
@@ -203,7 +212,21 @@ $.validator.addMethod(
 	"Valid email address required."
 );
 
+$.validator.addMethod(
+	"namepattern",
+	function(value, element, regexp) {
+		var re = new RegExp(regexp);
+		return this.optional(element) || re.test(value);
+	},
+	"Numbers not allowed"
+);
 
+// To allow number only
+function allowNumber() {
+	$("#mobile").keyup(function () { 
+    this.value = this.value.replace(/[^0-9]/g,'');
+});
+}
 
 
 
