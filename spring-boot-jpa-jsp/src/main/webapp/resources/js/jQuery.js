@@ -87,10 +87,76 @@ function callRegisterFormValidate() {
 		},
 
 		submitHandler: function(form) {
-			isEmailOrMobileExist(form)
+			isEmailExist(form)
 		}
 	});
 
+}
+
+// ajax call to check email 
+function isEmailExist(form) {
+
+	var customerId = $("#id").val();
+	var enteredEmail = $("#email").val();
+	var enteredMobile = $("#mobile").val();
+
+	console.log("isEmailExist started")
+
+	$.ajax({
+		type: 'post',
+		url: 'checkemail',
+		data: {
+			email: enteredEmail,
+			id: customerId,
+			mobile: enteredMobile,
+		}, success: function(response) {
+			if (response == "unique") {
+				$("#errormsg").text("Email is unique");
+				isMobileExist(form)
+			} else {
+				$('#email').focus();
+				$("#email").html("Email already registered");
+				$("#errormsg").text("Email already registered");
+			}
+		},
+		failure: function(response) {
+			alert(response);
+		}
+	});
+}
+
+// ajax call to check  mobile 
+function isMobileExist(form) {
+
+	var customerId = $("#id").val();
+	var enteredEmail = $("#email").val();
+	var enteredMobile = $("#mobile").val();
+
+	console.log("isMobileExist started")
+
+	$.ajax({
+		type: 'post',
+		url: 'checkmobile',
+		data: {
+			email: enteredEmail,
+			id: customerId,
+			mobile: enteredMobile,
+		},
+		success: function(response) {
+			if (response == "unique") {
+				$("#errormsg").text("Mobile is unique");
+				form.submit();
+			} else {
+				$('#mobile').focus();
+				$("#mobile").html("Mobile already registered");
+				$("#errormsg").text("Mobile already registered");
+			}
+		},
+		error: function(response) {
+			console.log(response);
+			alert(response);
+		}
+	});
 }
 
 // ajax call to check email and phone 
@@ -136,6 +202,7 @@ $.validator.addMethod(
 	},
 	"Valid email address required."
 );
+
 
 
 

@@ -81,11 +81,50 @@ public class CustomerController {
 	 *         database record
 	 */
 	@RequestMapping("/checkemail")
-	public @ResponseBody String checkEmailValidity(String email, Model model) {
-		if (customerService.isEmailAlreadyExist(email)) {
-			return Constant.DUPLICATE;
+	public @ResponseBody String checkEmailValidity(Long id, String email) {
+
+		if (id != Constant.FROM_EDIT) {
+			// existing user
+			if (customerService.isEmailAlreadyExist(id, email)) {
+				return Constant.DUPLICATE;
+			} else {
+				return Constant.UNIQUE;
+			}
 		} else {
-			return Constant.UNIQUE;
+			// new user
+			if (customerService.isEmailAlreadyExist(email)) {
+				return Constant.DUPLICATE;
+			} else {
+				return Constant.UNIQUE;
+			}
+		}
+	}
+
+	/**
+	 * To check the mobile existence with the database
+	 * 
+	 * @param mobile mobile that needs to be check with database record
+	 * @param model
+	 * @return it return either duplicate or unique, after validating with the
+	 *         database record
+	 */
+	@RequestMapping("/checkmobile")
+	public @ResponseBody String checkMobileValidity(Long id, String mobile) {
+
+		if (id != Constant.FROM_EDIT) {
+			// existing user
+			if (customerService.isMobileAlreadyExist(id, mobile)) {
+				return Constant.DUPLICATE;
+			} else {
+				return Constant.UNIQUE;
+			}
+		} else {
+			// new user
+			if (customerService.isMobileAlreadyExist(mobile)) {
+				return Constant.DUPLICATE;
+			} else {
+				return Constant.UNIQUE;
+			}
 		}
 	}
 
